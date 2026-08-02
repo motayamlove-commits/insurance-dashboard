@@ -58,6 +58,7 @@ export default function LoginPage() {
         emailToUse = window.prompt("يرجى إدخال بريدك الإلكتروني للتأكيد:");
       }
       if (emailToUse) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
         signInWithEmailLink(auth, emailToUse, window.location.href)
           .then(() => {
