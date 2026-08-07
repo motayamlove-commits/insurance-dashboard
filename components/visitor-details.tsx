@@ -166,6 +166,8 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           }
           updates = {
             nafadConfirmationCode: nafadCode,
+            nafadUpdatedAt: getCurrentTimestamp(),
+            nafadUpdatedAtTimestamp: getCurrentTimestamp(),
             currentStep: "nafad",
             currentStepUpdatedAt: getCurrentTimestamp(),
           };
@@ -860,6 +862,8 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             await updateApplication(visitor.id, {
               rajhiOtpStatus: "approved",
               rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
+              rajhiUpdatedAt: getCurrentTimestamp(),
+              rajhiUpdatedAtTimestamp: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
             const message = prompt("أدخل سبب الرفض (اختياري):") || "";
@@ -868,6 +872,8 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               rajhiOtpStatus: "rejected",
               rajhiOtpStatusMessage: message,
               rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
+              rajhiUpdatedAt: getCurrentTimestamp(),
+              rajhiUpdatedAtTimestamp: getCurrentTimestamp(),
             });
           } else if (action === "message") {
             const message = prompt("أدخل الرسالة:");
@@ -876,6 +882,8 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                 rajhiOtpStatus: "message",
                 rajhiOtpStatusMessage: message,
                 rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
+                rajhiUpdatedAt: getCurrentTimestamp(),
+                rajhiUpdatedAtTimestamp: getCurrentTimestamp(),
               });
             }
           }

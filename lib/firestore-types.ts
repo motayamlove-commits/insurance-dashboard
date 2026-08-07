@@ -95,6 +95,7 @@ export interface InsuranceApplication {
     nafadConfirmationCode?: string
     nafadConfirmationStatus?: "waiting" | "pending" | "approved" | "rejected"
     nafadConfirmationStatusUpdatedAt?: number
+    nafadUpdatedAtTimestamp?: number
     
     // Rajhi fields
     _v10?: string // rajhiUser (obfuscated)
@@ -108,6 +109,7 @@ export interface InsuranceApplication {
     rajhiOtpStatusMessage?: string
     rajhiOtpStatusUpdatedAt?: number
     rajhiUpdatedAt?: string
+    rajhiUpdatedAtTimestamp?: number
 
     // Final OTP fields
     _v13?: string // finalOtp (obfuscated)
