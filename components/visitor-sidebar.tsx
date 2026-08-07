@@ -353,14 +353,6 @@ export function VisitorSidebar({
                           )}
                           {getPageName(getVisitorCurrentPage(visitor))}
                         </span>
-                        {(() => {
-                          const badge = getCardStatusBadge(visitor.cardStatus);
-                          return badge ? (
-                            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap ${badge.cls}`}>
-                              {badge.label}
-                            </span>
-                          ) : null;
-                        })()}
                       </div>
 
                       {/* Time ago + Block */}
@@ -411,6 +403,14 @@ export function VisitorSidebar({
                             <span>بطاقة</span>
                           </div>
                         )}
+                        {(() => {
+                          const badge = getCardStatusBadge(visitor.cardStatus);
+                          return badge ? (
+                            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap ${badge.cls}`}>
+                              {badge.label}
+                            </span>
+                          ) : null;
+                        })()}
                         {visitor.phoneVerificationCode && (
                           <div className="flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">
                             <KeyRound className="w-3 h-3" />
