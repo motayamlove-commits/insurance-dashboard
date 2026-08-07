@@ -53,6 +53,7 @@ const CardContent = ({ children, className }: any) => (
 );
 import { db } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { getCurrentTimestamp } from "@/lib/time-utils";
 import {
   ArrowRight,
   Home,
@@ -104,8 +105,8 @@ export function VisitorRedirectControl({
 
       await updateDoc(visitorRef, {
         redirectPage: targetPage,
-        redirectPageUpdatedAt: Date.now(),
-        currentStepUpdatedAt: Date.now(),
+        redirectPageUpdatedAt: getCurrentTimestamp(),
+        currentStepUpdatedAt: getCurrentTimestamp(),
         redirectRequestedAt: new Date().toISOString(),
         redirectRequestedBy: "admin",
       });

