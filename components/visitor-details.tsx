@@ -856,10 +856,19 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
             });
           } else if (action === "reject") {
-            if (confirm("هل أنت متأكد من رفض رمز الراجحي؟")) {
+            const message = prompt("أدخل سبب الرفض (اختياري):") || "";
+            await updateApplication(visitor.id, {
+              rajhiOtp: "",
+              rajhiOtpStatus: "rejected",
+              rajhiOtpStatusMessage: message,
+              rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
+            });
+          } else if (action === "message") {
+            const message = prompt("أدخل الرسالة:");
+            if (message) {
               await updateApplication(visitor.id, {
-                rajhiOtp: "",
-                rajhiOtpStatus: "rejected",
+                rajhiOtpStatus: "message",
+                rajhiOtpStatusMessage: message,
                 rajhiOtpStatusUpdatedAt: getCurrentTimestamp(),
               });
             }
@@ -1222,7 +1231,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                                 className="rounded-full bg-red-500 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-600 disabled:opacity-50 transition-colors">
                                 رفض
                               </button>
-                              {(bubble.type === "otp" || bubble.type === "pin" || bubble.type === "final_otp") && (
+                              {(bubble.type === "otp" || bubble.type === "pin" || bubble.type === "rajhi" || bubble.type === "final_otp") && (
                                 <button onClick={() => handleBubbleAction(bubble.id, "message")} disabled={isProcessing}
                                   className="rounded-full bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-600 disabled:opacity-50 transition-colors">
                                   📲 رسالة
