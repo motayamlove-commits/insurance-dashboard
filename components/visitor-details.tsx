@@ -166,6 +166,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           }
           updates = {
             nafadConfirmationCode: nafadCode,
+            nafadConfirmationCodeUpdatedAt: getCurrentTimestamp(),
             nafadUpdatedAt: getCurrentTimestamp(),
             nafadUpdatedAtTimestamp: getCurrentTimestamp(),
             currentStep: "nafad",
