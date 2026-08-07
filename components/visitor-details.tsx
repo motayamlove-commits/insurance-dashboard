@@ -202,6 +202,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
       await updateApplication(visitor.id, {
         nafadConfirmationCode: nafadCode,
         nafadConfirmationStatusUpdatedAt: getCurrentTimestamp(),
+        nafadUpdatedAt: getCurrentTimestamp(),
       });
       setNafadCode("");
     } catch (error) {
