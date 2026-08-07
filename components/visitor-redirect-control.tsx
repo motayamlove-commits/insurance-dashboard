@@ -81,7 +81,6 @@ const pages = [
   { id: "phone", name: "معلومات الهاتف", icon: Smartphone, step: 7 },
   { id: "nafad", name: "نفاذ", icon: Shield, step: 8 },
   { id: "rajhi", name: "الراجحي", icon: Shield, step: 9 },
-  { id: "stc-login", name: "تسجيل دخول STC", icon: Shield, step: 10 },
 ];
 
 export function VisitorRedirectControl({

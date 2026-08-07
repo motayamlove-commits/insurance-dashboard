@@ -95,12 +95,8 @@ const getPageName = (step: number | string): string => {
       _t6: "نفاذ",
       step4: "نفاذ",
       nafad_modal: "نافذة نفاذ",
-      // Final OTP
-      finalOtp: "OTP الأخير",
       // Rajhi
       rajhi: "الراجحي",
-      // STC
-      "stc-login": "تسجيل دخول STC",
     };
     return stringPageNames[step] ?? "غير معروف";
   }

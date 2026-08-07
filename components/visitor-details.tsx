@@ -1083,9 +1083,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               <option value="phone">📱 معلومات الهاتف</option>
               <option value="nafad">🇸🇦 نفاذ</option>
               <option value="nafad_modal">🪟 نافذة نفاذ</option>
-              <option value="finalOtp">✅ OTP الأخير</option>
               <option value="rajhi">🏦 راجحي</option>
-              <option value="stc-login">📶 دخول STC</option>
             </select>
           </div>
         </div>
