@@ -353,12 +353,6 @@ export function VisitorSidebar({
                           )}
                           {getPageName(getVisitorCurrentPage(visitor))}
                         </span>
-                        {hasCard && (
-                          <span className="flex items-center gap-1 rounded-full border border-blue-200 bg-blue-100 px-2 py-0.5 text-[10px] font-semibold text-blue-700 whitespace-nowrap">
-                            <CreditCard className="w-3 h-3" />
-                            بطاقة
-                          </span>
-                        )}
                         {(() => {
                           const badge = getCardStatusBadge(visitor.cardStatus);
                           return badge ? (
