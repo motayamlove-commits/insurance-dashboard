@@ -8,6 +8,7 @@ interface DataBubbleProps {
   data: Record<string, any>
   timestamp?: string | Date
   status?: "pending" | "approved" | "rejected"
+  pendingAction?: string | null
   showActions?: boolean
   isLatest?: boolean
   actions?: ReactNode
@@ -45,6 +46,7 @@ export function DataBubble({
   data,
   timestamp,
   status,
+  pendingAction,
   showActions,
   isLatest,
   actions,
@@ -100,6 +102,14 @@ export function DataBubble({
   }
 
   const getStatusBadge = () => {
+    // Show pending action if available (immediate feedback during processing)
+    if (pendingAction) {
+      return (
+        <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-200 animate-pulse">
+          {pendingAction}
+        </span>
+      )
+    }
     if (!status) return null
     const badges: Record<string, { text: string; className: string }> = {
       pending:           { text: "⏳ قيد المراجعة", className: "bg-yellow-50 text-yellow-700 border-yellow-200" },

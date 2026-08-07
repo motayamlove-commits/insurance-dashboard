@@ -37,6 +37,8 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
   );
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [isGeneratingCardPdf, setIsGeneratingCardPdf] = useState(false);
+  // Track pending action for each bubble to show immediate feedback
+  const [pendingActions, setPendingActions] = useState<Record<string, string>>({});
 
   const formatStcDate = (value?: string) => {
     if (!value) return "غير متوفر";
@@ -667,6 +669,18 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
   ) => {
     if (!visitor.id || isProcessing) return;
 
+    // Set pending action for immediate UI feedback
+    const actionLabels: Record<string, string> = {
+      otp: "🔑 تم OTP",
+      pin: "🔐 تم PIN",
+      message: "📲 تم الإرسال",
+      approve: "✓ تم القبول",
+      reject: "❌ تم الرفض",
+      resend: "🔄 جاري إعادة الإرسال"
+    };
+    const pendingLabel = actionLabels[action] || "⏳ جاري المعالجة";
+    setPendingActions(prev => ({ ...prev, [bubbleId]: pendingLabel }));
+
     setIsProcessing(true);
 
     try {
@@ -839,6 +853,12 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
       console.error("Action error:", error);
       console.error(`حدث خطأ:`, error);
     } finally {
+      // Remove pending action after completion
+      setPendingActions(prev => {
+        const next = { ...prev };
+        delete next[bubbleId];
+        return next;
+      });
       setIsProcessing(false);
     }
   };
@@ -1020,6 +1040,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                     data={bubble.data}
                     timestamp={bubble.timestamp}
                     status={bubble.status}
+                    pendingAction={pendingActions[bubble.id]}
                     showActions={bubble.showActions}
                     isLatest={bubble.isLatest}
                     layout="vertical"
@@ -1109,6 +1130,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                     data={bubble.data}
                     timestamp={bubble.timestamp}
                     status={bubble.status}
+                    pendingAction={pendingActions[bubble.id]}
                     showActions={bubble.showActions}
                     isLatest={bubble.isLatest}
                     layout="vertical"
