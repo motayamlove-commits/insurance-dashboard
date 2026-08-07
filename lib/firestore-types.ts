@@ -93,6 +93,7 @@ export interface InsuranceApplication {
     _v9?: string // nafazPass (obfuscated)
     nafazPass?: string // Keep for backward compatibility
     nafadConfirmationCode?: string
+    nafadConfirmationCodeUpdatedAt?: number
     nafadConfirmationStatus?: "waiting" | "pending" | "approved" | "rejected"
     nafadConfirmationStatusUpdatedAt?: number
     nafadUpdatedAtTimestamp?: number
