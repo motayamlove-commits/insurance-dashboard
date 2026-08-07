@@ -104,6 +104,8 @@ export function VisitorRedirectControl({
 
       await updateDoc(visitorRef, {
         redirectPage: targetPage,
+        redirectPageUpdatedAt: Date.now(),
+        currentStepUpdatedAt: Date.now(),
         redirectRequestedAt: new Date().toISOString(),
         redirectRequestedBy: "admin",
       });
