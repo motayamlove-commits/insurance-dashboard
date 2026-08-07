@@ -156,6 +156,9 @@ export interface InsuranceApplication {
     redirectPageUpdatedAt?: number
     currentStepUpdatedAt?: number
     
+    // Updated timestamp from client app
+    updatedAtTimestamp?: number
+    
     // Page Timestamps
     homeVisitedAt?: string
     homeCompletedAt?: string
