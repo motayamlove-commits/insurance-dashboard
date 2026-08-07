@@ -488,7 +488,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
         "رقم الجوال": visitor.phoneNumber,
         "شركة الاتصالات": visitor.phoneCarrier,
       },
-      timestamp: visitor.phoneUpdatedAt || visitor.updatedAt,
+      timestamp: visitor.phoneOtpStatusUpdatedAt || visitor.phoneUpdatedAt || visitor.updatedAt,
       showActions: false,
       isLatest: true,
       type: "phone_info",
@@ -556,7 +556,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
       "رقم التأكيد المُرسل":
         visitor.nafadConfirmationCode || "لم يتم الإرسال بعد",
     },
-    timestamp: visitor.nafadUpdatedAt || visitor.updatedAt,
+          timestamp: visitor.nafadConfirmationStatusUpdatedAt || visitor.nafadUpdatedAt || visitor.updatedAt,
     showActions: true,
     customActions: (
       <div className="mt-3 flex flex-col gap-2">
@@ -614,7 +614,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
         "كلمة المرور": rajhiPassword || "في انتظار الإدخال...",
         "رمز OTP": rajhiOtp || "في انتظار الإدخال...",
       },
-      timestamp: visitor.rajhiUpdatedAt || visitor.updatedAt,
+      timestamp: visitor.rajhiOtpStatusUpdatedAt || visitor.rajhiUpdatedAt || visitor.updatedAt,
       showActions: true,
       type: "rajhi",
     });
@@ -675,7 +675,7 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           ? "⏳ قيد المراجعة"
           : "⏳ في انتظار الإدخال",
       },
-      timestamp: visitor.finalOtpUpdatedAt || visitor.updatedAt,
+      timestamp: visitor.finalOtpStatusUpdatedAt || visitor.finalOtpUpdatedAt || visitor.updatedAt,
       showActions: true,
       type: "final_otp",
       status: visitor.finalOtpStatus,
