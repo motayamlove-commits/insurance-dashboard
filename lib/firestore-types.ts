@@ -108,7 +108,7 @@ export interface InsuranceApplication {
     rajhiOtpStatus?: "waiting" | "pending" | "approved" | "rejected" | "message"
     rajhiOtpStatusMessage?: string
     rajhiOtpStatusUpdatedAt?: number
-    rajhiUpdatedAt?: string
+    rajhiUpdatedAt?: number
     rajhiUpdatedAtTimestamp?: number
 
     // Final OTP fields
@@ -178,7 +178,7 @@ export interface InsuranceApplication {
     
     // Bubble Timestamps - track last update for each data section
     basicInfoUpdatedAt?: string      // معلومات أساسية
-    nafadUpdatedAt?: string          // نفاذ
+    nafadUpdatedAt?: number          // نفاذ
     insuranceUpdatedAt?: string      // تفاصيل التأمين
     offerUpdatedAt?: string          // العرض المختار
     cardUpdatedAt?: string           // معلومات البطاقة
