@@ -159,10 +159,15 @@ export function VisitorDetails({ visitor, onBack }: VisitorDetailsProps) {
           };
           break;
         case "nafad_modal":
+          const nafadCode = prompt("أدخل رمز التأكيد (2-4 أرقام):");
+          if (!nafadCode || nafadCode.length < 2 || nafadCode.length > 4) {
+            alert("يجب إدخال رمز من 2 إلى 4 أرقام");
+            return;
+          }
           updates = {
-            nafadConfirmationCode: "123456",
+            nafadConfirmationCode: nafadCode,
             currentStepUpdatedAt: getCurrentTimestamp(),
-          }; // Send confirmation code to open modal
+          };
           break;
         case "finalOtp":
           updates = {
